@@ -1,0 +1,300 @@
+﻿<UserControl
+    x:Class="FUMiniHotelManagement.CustomerView.Profile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:FUMiniHotelManagement.CustomerView"
+    Background="Transparent">
+
+    <UserControl.Resources>
+        <!--  Gradient Brushes to match CustomerControl  -->
+        <LinearGradientBrush x:Key="ButtonGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#667EEA" />
+            <GradientStop Offset="1" Color="#764BA2" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ButtonHoverGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#F093FB" />
+            <GradientStop Offset="1" Color="#F5576C" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="TitleGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Offset="0" Color="#667EEA" />
+            <GradientStop Offset="1" Color="#764BA2" />
+        </LinearGradientBrush>
+
+        <!--  Title Style matching CustomerControl  -->
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{StaticResource TitleGradient}" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        BlurRadius="4"
+                        Direction="270"
+                        Opacity="0.2"
+                        ShadowDepth="1"
+                        Color="#000000" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Modern Update Button Style  -->
+        <Style x:Key="UpdateButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="45" />
+            <Setter Property="MinWidth" Value="140" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="{StaticResource ButtonGradient}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,24,0,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="8"
+                                    Direction="270"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="#000000" />
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ButtonHoverGradient}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Modern TextBox Style  -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="14,12" />
+            <Setter Property="Margin" Value="0,12,0,16" />
+            <Setter Property="BorderBrush" Value="#E2E8F0" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="#F8FAFC" />
+            <Setter Property="Foreground" Value="#2D3748" />
+            <Setter Property="MinHeight" Value="45" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Margin="{TemplateBinding Padding}"
+                                Focusable="false"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#CBD5E0" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#667EEA" />
+                                <Setter TargetName="border" Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsReadOnly" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#EDF2F7" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="#E2E8F0" />
+                                <Setter Property="Foreground" Value="#718096" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Modern DatePicker Style  -->
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="14,12" />
+            <Setter Property="Margin" Value="0,12,0,16" />
+            <Setter Property="BorderBrush" Value="#E2E8F0" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="#F8FAFC" />
+            <Setter Property="Foreground" Value="#2D3748" />
+            <Setter Property="MinHeight" Value="45" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <DatePickerTextBox
+                                    x:Name="PART_TextBox"
+                                    Grid.Column="0"
+                                    Margin="{TemplateBinding Padding}"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    Foreground="{TemplateBinding Foreground}" />
+                                <Button
+                                    x:Name="PART_Button"
+                                    Grid.Column="1"
+                                    Width="30"
+                                    Height="30"
+                                    Margin="0,0,8,0"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Focusable="False">
+                                    <Path
+                                        Width="16"
+                                        Height="16"
+                                        Data="M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19Z"
+                                        Fill="#667EEA"
+                                        Stretch="Uniform" />
+                                </Button>
+                                <Popup
+                                    x:Name="PART_Popup"
+                                    AllowsTransparency="True"
+                                    Placement="Bottom"
+                                    PlacementTarget="{Binding ElementName=PART_TextBox}"
+                                    StaysOpen="False" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#CBD5E0" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#667EEA" />
+                                <Setter TargetName="border" Property="Background" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Label Style  -->
+        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#4A5568" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,20,0" />
+        </Style>
+    </UserControl.Resources>
+
+    <!--  Use Grid to fill available space properly  -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Page Title  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,40"
+            Style="{StaticResource TitleStyle}"
+            Text="👤 My Profile" />
+
+        <!--  Profile Form - Centered in available space  -->
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Full Name  -->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Style="{StaticResource FieldLabelStyle}"
+                Text="Full Name:" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource ModernTextBox}"
+                Text="{Binding CustomerFullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <!--  Email  -->
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource FieldLabelStyle}"
+                Text="Email:" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                IsReadOnly="True"
+                Style="{StaticResource ModernTextBox}"
+                Text="{Binding EmailAddress, Mode=OneWay}" />
+
+            <!--  Phone  -->
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Style="{StaticResource FieldLabelStyle}"
+                Text="Phone:" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                Style="{StaticResource ModernTextBox}"
+                Text="{Binding Telephone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <!--  Birthday  -->
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                Style="{StaticResource FieldLabelStyle}"
+                Text="Birthday:" />
+            <DatePicker
+                Grid.Row="3"
+                Grid.Column="1"
+                SelectedDate="{Binding CustomerBirthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource ModernDatePicker}" />
+        </Grid>
+
+        <!--  Update Button - Bottom aligned  -->
+        <Button
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            Command="{Binding UpdateProfileCommand}"
+            Content="🔄 Update Profile"
+            Style="{StaticResource UpdateButtonStyle}" />
+    </Grid>
+</UserControl>

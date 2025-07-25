@@ -1,0 +1,130 @@
+﻿<Window
+    x:Class="FUMiniHotelManagement.CustomerView.BookingPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Booking Room"
+    Width="420"
+    Height="417"
+    Background="#F8FAFC"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="Margin" Value="0,2,0,10" />
+            <Setter Property="BorderBrush" Value="#764BA2" />
+            <Setter Property="BorderThickness" Value="1.2" />
+            <Setter Property="Background" Value="#F8FAFC" />
+            <Setter Property="Foreground" Value="#2D3748" />
+        </Style>
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="4,0" />
+            <Setter Property="Margin" Value="0,2,0,10" />
+            <Setter Property="BorderBrush" Value="#764BA2" />
+            <Setter Property="BorderThickness" Value="1.2" />
+            <Setter Property="Background" Value="#F8FAFC" />
+            <Setter Property="Foreground" Value="#2D3748" />
+        </Style>
+        <Style x:Key="PopupButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#667EEA" />
+                        <GradientStop Offset="1" Color="#764BA2" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="8,0,0,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F093FB" />
+                                <Setter Property="Foreground" Value="#222" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border
+        Margin="20"
+        Padding="24"
+        Background="White"
+        CornerRadius="14">
+        <StackPanel>
+            <TextBlock
+                Margin="0,0,0,18"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="#667EEA"
+                Text="            Booking Information" />
+            <!--  Room Info  -->
+            <StackPanel Margin="0,0,0,14" Orientation="Vertical">
+                <StackPanel Margin="0,0,0,6" Orientation="Horizontal">
+                    <TextBlock
+                        Width="110"
+                        FontWeight="SemiBold"
+                        Text="Room Number:" />
+                    <TextBlock Text="{Binding RoomNumber}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,6" Orientation="Horizontal">
+                    <TextBlock
+                        Width="110"
+                        FontWeight="SemiBold"
+                        Text="Type:" />
+                    <TextBlock Text="{Binding RoomTypeName}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,6" Orientation="Horizontal">
+                    <TextBlock
+                        Width="110"
+                        FontWeight="SemiBold"
+                        Text="Price/Day:" />
+                    <TextBlock Text="{Binding RoomPricePerDay, StringFormat={}{0:N0} VND}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--  Booking Info  -->
+            <TextBlock FontWeight="SemiBold" Text="Check-in Date:" />
+            <DatePicker SelectedDate="{Binding CheckInDate, Mode=TwoWay}" Style="{StaticResource ModernDatePicker}" />
+            <TextBlock
+                Margin="0,6,0,0"
+                FontWeight="SemiBold"
+                Text="Check-out Date:" />
+            <DatePicker SelectedDate="{Binding CheckOutDate, Mode=TwoWay}" Style="{StaticResource ModernDatePicker}" />
+
+            <!--  Action Button  -->
+            <StackPanel
+                Margin="0,12,0,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding BookCommand}"
+                    Content="Book"
+                    Style="{StaticResource PopupButtonStyle}" />
+                <Button
+                    Background="#CBD5E1"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel"
+                    Foreground="#2D3748"
+                    Style="{StaticResource PopupButtonStyle}" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

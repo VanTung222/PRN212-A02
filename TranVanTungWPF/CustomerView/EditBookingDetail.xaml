@@ -1,0 +1,75 @@
+﻿<Window
+    x:Class="FUMiniHotelManagement.CustomerView.EditBookingDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Edit Booking Detail"
+    Width="380"
+    Height="396"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner"
+    Background="#f4f6fb"
+    FontSize="14"
+    FontFamily="Segoe UI">
+
+    <Border Background="White" CornerRadius="8" Margin="16" Padding="18" BorderBrush="#dbe2ef" BorderThickness="1">
+        <StackPanel>
+
+            <TextBlock FontWeight="SemiBold" Text="Room:" Margin="0,0,0,4"/>
+            <TextBox
+                IsReadOnly="True"
+                Background="#f0f4ff"
+                BorderBrush="#4f8cff"
+                BorderThickness="1"
+                Padding="6"
+                Margin="0,0,0,10"
+                Text="{Binding EditableDetail.Room.RoomNumber}" />
+
+            <TextBlock FontWeight="SemiBold" Text="Check-in Date:" Margin="0,0,0,4"/>
+            <DatePicker
+                SelectedDate="{Binding StartDateProxy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="#4f8cff"
+                Margin="0,0,0,10"/>
+
+            <TextBlock FontWeight="SemiBold" Text="Check-out Date:" Margin="0,0,0,4"/>
+            <DatePicker
+                SelectedDate="{Binding EndDateProxy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                BorderBrush="#4f8cff"
+                Margin="0,0,0,10"/>
+
+            <TextBlock FontWeight="SemiBold" Text="Price (VND):" Margin="0,0,0,4"/>
+            <TextBox
+                BorderBrush="#4f8cff"
+                BorderThickness="1"
+                Padding="6"
+                Margin="0,0,0,16"
+                Text="{Binding ActualPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button
+                    Width="80"
+                    Height="34"
+                    Margin="0,0,10,0"
+                    Content="Save"
+                    Click="Save_Click"
+                    IsDefault="True"
+                    Background="#4f8cff"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderBrush="Transparent"
+                    Cursor="Hand" />
+
+                <Button
+                    Width="80"
+                    Height="34"
+                    Content="Cancel"
+                    IsCancel="True"
+                    Background="#e0e0e0"
+                    Foreground="Black"
+                    FontWeight="SemiBold"
+                    BorderBrush="Transparent"
+                    Cursor="Hand" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

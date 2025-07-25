@@ -1,0 +1,138 @@
+﻿<UserControl
+    x:Class="FUMiniHotelManagement.CustomerView.Booking"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FUMiniHotelManagement.CustomerView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--  Style đẹp cho nút  -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="34" />
+            <Setter Property="MinWidth" Value="90" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#667EEA" />
+                        <GradientStop Offset="1" Color="#764BA2" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F093FB" />
+                                <Setter Property="Foreground" Value="#222" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--  Style cho TextBox search  -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="BorderBrush" Value="#764BA2" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="Background" Value="#F8FAFC" />
+            <Setter Property="Foreground" Value="#2D3748" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border
+        Padding="28"
+        Background="White"
+        CornerRadius="18">
+        <StackPanel>
+            <TextBlock
+                Margin="0,0,0,18"
+                FontSize="22"
+                FontWeight="Bold"
+                Foreground="#667EEA"
+                Text="Available Rooms" />
+
+            <!--  Thanh tìm kiếm  -->
+            <StackPanel Margin="0,0,0,8" Orientation="Horizontal">
+                <TextBox
+                    Width="220"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ModernTextBox}"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                <Button
+                    Command="{Binding SearchCommand}"
+                    Content="Search"
+                    Style="{StaticResource ActionButtonStyle}" />
+            </StackPanel>
+
+            <!--  DataGrid hiển thị phòng trống  -->
+            <DataGrid
+                Height="320"
+                Margin="0,0,0,10"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                ItemsSource="{Binding AvailableRooms}"
+                SelectedItem="{Binding SelectedRoom, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Binding="{Binding RoomID}"
+                        Header="ID"
+                        Visibility="Collapsed" />
+                    <DataGridTextColumn
+                        Width="1.1*"
+                        Binding="{Binding RoomNumber}"
+                        Header="Room Number" />
+                    <DataGridTextColumn
+                        Width="2*"
+                        Binding="{Binding RoomDetailDescription}"
+                        Header="Description" />
+                    <DataGridTextColumn
+                        Width="0.7*"
+                        Binding="{Binding RoomMaxCapacity}"
+                        Header="Capacity" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding RoomTypeName}"
+                        Header="Type" />
+                    <DataGridTextColumn
+                        Width="0.9*"
+                        Binding="{Binding RoomStatusString}"
+                        Header="Status" />
+                    <DataGridTextColumn
+                        Width="1*"
+                        Binding="{Binding RoomPricePerDay, StringFormat={}{0:N0}K VND}"
+                        Header="Price/Day" />
+                    <!--  Action column  -->
+                    <DataGridTemplateColumn Width="110" Header="Action">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Width="80"
+                                    Height="28"
+                                    Command="{Binding DataContext.BookingCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}"
+                                    Content="Booking"
+                                    Style="{StaticResource ActionButtonStyle}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Border>
+</UserControl>

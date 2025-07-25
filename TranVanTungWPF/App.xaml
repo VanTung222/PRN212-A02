@@ -1,0 +1,11 @@
+﻿<Application x:Class="TranVanTungWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:utils="clr-namespace:FUMiniHotelManagement.Utils"
+             StartupUri="LoginWindow.xaml">
+    <Application.Resources>
+        <utils:DateToStringConverter x:Key="DateToStringConverter"/>
+        <utils:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
+        <utils:NullToBoolConverter x:Key="NullToBoolConverter" />
+    </Application.Resources>
+</Application>

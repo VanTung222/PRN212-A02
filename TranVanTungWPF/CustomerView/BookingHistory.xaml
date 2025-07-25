@@ -1,0 +1,147 @@
+﻿<UserControl
+    x:Class="FUMiniHotelManagement.CustomerView.BookingHistory"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FUMiniHotelManagement.CustomerView"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="480"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--  Button style gradient  -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="32" />
+            <Setter Property="MinWidth" Value="78" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#667EEA" />
+                        <GradientStop Offset="1" Color="#764BA2" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F093FB" />
+                                <Setter Property="Foreground" Value="#222" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--  TextBox style  -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="BorderBrush" Value="#764BA2" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="Background" Value="#F8FAFC" />
+            <Setter Property="Foreground" Value="#2D3748" />
+        </Style>
+    </UserControl.Resources>
+    <Border
+        Padding="24"
+        Background="White"
+        CornerRadius="16">
+        <StackPanel>
+            <TextBlock
+                Margin="0,0,0,18"
+                FontSize="22"
+                FontWeight="Bold"
+                Foreground="#667EEA"
+                Text="Your Booking History" />
+            <!--  Search Section  -->
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBox
+                    Width="220"
+                    Height="32"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ModernTextBox}"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Search by Room, Date, Status..." />
+                <Button
+                    Command="{Binding SearchCommand}"
+                    Content="Search"
+                    Style="{StaticResource ActionButtonStyle}" />
+            </StackPanel>
+            <!--  Booking Detail DataGrid  -->
+            <DataGrid
+                Height="340"
+                Margin="0,0,0,10"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                ItemsSource="{Binding BookingDetailList}"
+                SelectedItem="{Binding SelectedBooking, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="70"
+                        Binding="{Binding BookingReservationId}"
+                        Header="Booking ID" />
+                    <DataGridTextColumn
+                        Width="80"
+                        Binding="{Binding Room.RoomNumber}"
+                        Header="Room" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding StartDate, Converter={StaticResource DateToStringConverter}}"
+                        Header="Check-in Date" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding EndDate, Converter={StaticResource DateToStringConverter}}"
+                        Header="Check-out Date" />
+                    <DataGridTextColumn
+                        Width="120"
+                        Binding="{Binding ActualPrice, StringFormat={}{0:N0} VND}"
+                        Header="Price" />
+                    <!--  Action column  -->
+                    <DataGridTemplateColumn Width="180" Header="Action">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Button
+                                        Height="28"
+                                        MinWidth="56"
+                                        Margin="0,0,6,0"
+                                        Command="{Binding DataContext.ViewCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"
+                                        Content="View"
+                                        Style="{StaticResource ActionButtonStyle}" />
+                                    <Button
+                                        Height="28"
+                                        MinWidth="56"
+                                        Margin="0,0,6,0"
+                                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"
+                                        Content="Edit"
+                                        Style="{StaticResource ActionButtonStyle}" />
+                                    <Button
+                                        Height="28"
+                                        MinWidth="56"
+                                        Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"
+                                        Content="Delete"
+                                        Style="{StaticResource ActionButtonStyle}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Border>
+</UserControl>

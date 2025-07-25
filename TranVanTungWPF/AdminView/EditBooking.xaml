@@ -1,0 +1,112 @@
+﻿<Window
+    x:Class="FUMiniHotelManagement.AdminView.EditBooking"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Edit Booking"
+    Width="460"
+    Height="470"
+    WindowStartupLocation="CenterScreen"
+    Background="#f4f6fb"
+    FontFamily="Segoe UI">
+
+    <Border
+        Margin="20"
+        Padding="20"
+        Background="White"
+        CornerRadius="16"
+        BorderBrush="#dbe2ef"
+        BorderThickness="1">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0,0,0,10">
+                <!-- Room Number -->
+                <TextBlock Margin="0,0,0,4" Text="Room:" Foreground="#333" FontWeight="SemiBold"/>
+                <ComboBox
+                    Height="32"
+                    Padding="4,0"
+                    Background="#f0f4ff"
+                    BorderBrush="#4f8cff"
+                    BorderThickness="1"
+                    Margin="0,0,0,10"
+                    DisplayMemberPath="RoomNumber"
+                    ItemsSource="{Binding AllRooms}"
+                    SelectedItem="{Binding EditingBooking.SelectedRoom, Mode=TwoWay}" />
+
+                <!-- Customer Name -->
+                <TextBlock Margin="0,0,0,4" Text="Customer Name:" Foreground="#333" FontWeight="SemiBold"/>
+                <TextBox
+                    Height="32"
+                    Padding="6,0"
+                    Background="#f0f4ff"
+                    BorderBrush="#4f8cff"
+                    BorderThickness="1"
+                    Margin="0,0,0,10"
+                    Text="{Binding EditingBooking.CustomerName, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!-- Start Date -->
+                <TextBlock Margin="0,0,0,4" Text="Start Date:" Foreground="#333" FontWeight="SemiBold"/>
+                <DatePicker
+                    Height="32"
+                    Background="#f0f4ff"
+                    BorderBrush="#4f8cff"
+                    BorderThickness="1"
+                    Margin="0,0,0,10"
+                    SelectedDate="{Binding EditingBooking.StartDate, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!-- End Date -->
+                <TextBlock Margin="0,0,0,4" Text="End Date:" Foreground="#333" FontWeight="SemiBold"/>
+                <DatePicker
+                    Height="32"
+                    Background="#f0f4ff"
+                    BorderBrush="#4f8cff"
+                    BorderThickness="1"
+                    Margin="0,0,0,10"
+                    SelectedDate="{Binding EditingBooking.EndDate, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!-- Actual Price -->
+                <TextBlock Margin="0,0,0,4" Text="Actual Price:" Foreground="#333" FontWeight="SemiBold"/>
+                <TextBox
+                    Height="32"
+                    Padding="6,0"
+                    Background="#f0f4ff"
+                    BorderBrush="#4f8cff"
+                    BorderThickness="1"
+                    Margin="0,0,0,10"
+                    Text="{Binding EditingBooking.ActualPrice, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Height="36"
+                    Margin="0,0,10,0"
+                    Background="#4f8cff"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderBrush="#4f8cff"
+                    Command="{Binding SaveEditBookingCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Content="Save" />
+                <Button
+                    Width="100"
+                    Height="36"
+                    Background="#ff6b6b"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderBrush="#ff6b6b"
+                    Command="{Binding CancelEditBookingCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Content="Cancel" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
